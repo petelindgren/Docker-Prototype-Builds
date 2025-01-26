@@ -1,4 +1,4 @@
-FROM postgres:15.10-bullseye
+FROM postgres:16.6-bullseye
 
 # Install htop to interactively monitor the system in real-time
 RUN apt-get update && apt-get install htop -y && apt-get clean

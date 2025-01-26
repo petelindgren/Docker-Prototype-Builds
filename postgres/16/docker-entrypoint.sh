@@ -26,7 +26,6 @@ set -e
 # https://www.postgresql.org/docs/12/hot-standby.html
 cat >> ${PGDATA}/postgresql.conf <<EOF
 hot_standby = on
-promote_trigger_file = '/tmp/touch_me_to_promote_to_me_writer'
 primary_conninfo = 'host=$PG_WRITER_HOST port=${PG_WRITER_PORT:-5432} user=$PG_REP_USER password=$PG_REP_PASSWORD'
 EOF
 

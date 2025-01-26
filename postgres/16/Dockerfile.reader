@@ -1,4 +1,4 @@
-FROM postgres:15.10-bullseye
+FROM postgres:16.6-bullseye
 
 # Install iputils-ping so the Reader can ping the Writer
 # Install htop to interactively monitor the system in real-time
