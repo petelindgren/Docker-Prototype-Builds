@@ -1,4 +1,4 @@
-FROM postgres:13.18-bullseye
+FROM postgres:14.15-bullseye
 
 # Install iputils-ping so the Reader can ping the Writer
 RUN apt-get update && apt-get install iputils-ping -y && apt-get clean
