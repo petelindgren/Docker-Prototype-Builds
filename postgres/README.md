@@ -58,6 +58,23 @@ References: https://www.postgresql.org/docs/12/release-12.html
 
 ### Postgres 13 Specific Changes
 
+References: https://www.postgresql.org/docs/13/release-13.html
+
+- Replace `wal_keep_segments` with `wal_keep_size`
+
+  **Why**: https://www.postgresql.org/docs/13/release-13.html#id-1.11.6.24.4
+
+  >Rename configuration parameter `wal_keep_segments` to `wal_keep_size` (Fujii Masao) §
+  >This determines how much WAL to retain for standby servers. It is specified in megabytes, rather than number of files as with the old parameter.
+
+  **How**: https://www.postgresql.org/docs/13/release-13.html#id-1.11.6.24.4
+
+  >If you previously used `wal_keep_segments`, the following formula will give you an approximately equivalent setting:
+
+  ```sh
+  wal_keep_size = wal_keep_segments * wal_segment_size (typically 16MB)
+  ```
+
 
 ### Postgres 14 Specific Changes
 
