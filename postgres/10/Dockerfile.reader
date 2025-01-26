@@ -1,11 +1,10 @@
 FROM postgres:10.23-bullseye
 
 # Install iputils-ping so the Reader can ping the Writer
-RUN apt-get update && apt-get install iputils-ping -y && apt-get clean
+# Install htop to interactively monitor the system in real-time
+RUN apt-get update && apt-get install iputils-ping htop -y && apt-get clean
 
-# COPY ./setup-reader.sh /docker-entrypoint-initdb.d
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-
 RUN chmod +x /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

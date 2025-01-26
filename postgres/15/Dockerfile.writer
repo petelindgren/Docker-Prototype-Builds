@@ -1,5 +1,8 @@
 FROM postgres:15.10-bullseye
 
+# Install htop to interactively monitor the system in real-time
+RUN apt-get update && apt-get install htop -y && apt-get clean
+
 COPY ./setup-writer.sh /docker-entrypoint-initdb.d/setup-writer.sh
 RUN chmod 0666 /docker-entrypoint-initdb.d/setup-writer.sh
 

@@ -1,7 +1,8 @@
 FROM postgres:15.10-bullseye
 
 # Install iputils-ping so the Reader can ping the Writer
-RUN apt-get update && apt-get install iputils-ping -y && apt-get clean
+# Install htop to interactively monitor the system in real-time
+RUN apt-get update && apt-get install iputils-ping htop -y && apt-get clean
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh

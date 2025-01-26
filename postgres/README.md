@@ -5,11 +5,30 @@ of Postgres in Read-Write Replication.
 
 
 ## Quicklinks
-- [Version Changes](#version-changes)
+- [Docker File Change History](#docker-file-change-history)
+- [Version Changes](#postgres-version-changes)
 - [Testing](#testing)
 
 
-## Version Changes
+## Docker File Change History
+
+- I = Initial File
+- N = New File
+- C = Changed File
+- D = Deleted File
+
+| File | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `configure-rw-postgres.sql` | - | - | N | - | - | - | - | - |
+| `docker-compose.yml` | I | - | - | - | - | - | - | - |
+| `docker-entrypoint.sh` | I | - | - | C | - | - | - | - |
+| `Dockerfile.reader` | I | C | - | - | - | - | - | - |
+| `Dockerfile.writer` | I | - | C | - | - | - | - | - |
+| `gosu` | I | D | - | - | - | - | - | - |
+| `setup-writer.sh` | I | C | - | - | C | - | - | - |
+
+
+## Postgres Version Changes
 
 ### Postgres 9
 Postgres 9 is the original version based on this [blog post](https://medium.com/@2hamed/replicating-postgres-inside-docker-the-how-to-3244dc2305be).
@@ -91,6 +110,10 @@ References: https://www.postgresql.org/docs/14/release-14.html
 
 
 ### Postgres 15 Specific Changes
+
+References: https://www.postgresql.org/docs/15/release-15.html
+
+- No Change Needed
 
 
 ### Postgres 16 Specific Changes

@@ -1,5 +1,6 @@
 FROM postgres:9.6-alpine
 
+# Install htop to interactively monitor the system in real-time
 RUN apk add --update htop
 
 COPY ./setup-writer.sh /docker-entrypoint-initdb.d/setup-writer.sh
