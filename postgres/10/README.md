@@ -36,5 +36,3 @@ References: https://www.postgresql.org/docs/10/release-10.html
 - Update `setup-writer.sh`
 
   - Change `wal_level` from `hot_standby` to `replica`
-
-
