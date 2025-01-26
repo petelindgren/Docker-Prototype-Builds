@@ -1,4 +1,4 @@
-FROM postgres:11.18-bullseye
+FROM postgres:11.22-bullseye
 
 # Update packages to install iputils-ping
 RUN apt-get update && apt-get install iputils-ping -y && apt-get clean

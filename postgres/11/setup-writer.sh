@@ -11,7 +11,7 @@ else
 echo "Use existing user '$PG_REP_USER' for replication"
 fi
 cat >> ${PGDATA}/postgresql.conf <<EOF
-wal_level = hot_standby
+wal_level = replica
 archive_mode = on
 archive_command = 'cd .'
 max_wal_senders = 8
