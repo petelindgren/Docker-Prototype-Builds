@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 if [ ! -s "$PGDATA/PG_VERSION" ]; then
+# Do not use a .pgpass file in production because of security concerns
 echo "*:*:*:$PG_REP_USER:$PG_REP_PASSWORD" > ~/.pgpass
 
 chmod 0600 ~/.pgpass

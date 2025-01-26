@@ -23,7 +23,7 @@ References: https://www.postgresql.org/docs/10/release-10.html
     >
     >In releases prior to 9.6, this parameter also allowed the values `archive` and `hot_standby`. These are still accepted but mapped to `replica`.
 
-### Implementing Postgres 10 changes in Docker
+### Implementing Postgres 10 in Docker
 
 - Update `Dockerfile.reader`
 

@@ -31,6 +31,10 @@ References: https://www.postgresql.org/docs/10/release-10.html
 
 ### Postgres 11 Specific Changes
 
+References: https://www.postgresql.org/docs/11/release-11.html
+
+- No Change Needed
+
 
 ### Postgres 12 Specific Changes
 

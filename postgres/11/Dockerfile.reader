@@ -1,6 +1,6 @@
 FROM postgres:11.22-bullseye
 
-# Update packages to install iputils-ping
+# Install iputils-ping so the Reader can ping the Writer
 RUN apt-get update && apt-get install iputils-ping -y && apt-get clean
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
@@ -10,5 +10,5 @@ RUN chmod +x /docker-entrypoint.sh
 COPY ./configure-rw-postgres.sql /docker-entrypoint-initdb.d/configure-rw-postgres.sql
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-# gosu is already installed on the postgress:11.18 Docker image
+
 CMD ["gosu", "postgres", "postgres"]
