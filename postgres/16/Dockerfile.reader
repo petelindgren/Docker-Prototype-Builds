@@ -1,0 +1,15 @@
+FROM postgres:15.10-bullseye
+
+# Install iputils-ping so the Reader can ping the Writer
+# Install htop to interactively monitor the system in real-time
+RUN apt-get update && apt-get install iputils-ping htop -y && apt-get clean
+
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
+# https://stackoverflow.com/a/70040212
+COPY ./configure-rw-postgres.sql /docker-entrypoint-initdb.d/configure-rw-postgres.sql
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["gosu", "postgres", "postgres"]

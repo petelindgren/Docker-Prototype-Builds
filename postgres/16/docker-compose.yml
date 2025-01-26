@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  pg_writer:
+    build:
+      dockerfile: ./Dockerfile.writer
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=pg15demo
+      - POSTGRES_PASSWORD=passw0rd
+      - POSTGRES_DB=pg15demo
+      - PG_REP_USER=rep_user
+      - PG_REP_PASSWORD=use4replication
+    networks:
+      default:
+        aliases:
+          - pg_cluster
+
+  pg_reader:
+    build:
+      dockerfile: ./Dockerfile.reader
+    environment:
+      - POSTGRES_USER=pg15demo
+      - POSTGRES_PASSWORD=passw0rd
+      - POSTGRES_DB=pg15demo
+      - PG_REP_USER=rep_user
+      - PG_REP_PASSWORD=use4replication
+      - PG_WRITER_HOST=pg_writer
+    networks:
+      default:
+        aliases:
+          - pg_cluster
+
+volumes:
+  pg_data:
