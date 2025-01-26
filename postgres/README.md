@@ -58,6 +58,10 @@ References: https://www.postgresql.org/docs/12/release-12.html
 
 ### Postgres 13 Specific Changes
 
+References: https://www.postgresql.org/docs/13/release-13.html
+
+- No Change Needed
+
 
 ### Postgres 14 Specific Changes
 
