@@ -15,6 +15,6 @@ wal_level = replica
 archive_mode = on
 archive_command = 'cd .'
 max_wal_senders = 8
-wal_keep_segments = 8
+wal_keep_size = 128
 hot_standby = on
 EOF
