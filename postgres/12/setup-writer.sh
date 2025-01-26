@@ -1,6 +1,5 @@
 #!/bin/bash
 echo "host replication all 0.0.0.0/0 md5" >> "$PGDATA/pg_hba.conf"
-
 set -e
 EXISTING_ROLE=`psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" -tXAc "SELECT 1 FROM pg_roles WHERE rolname='$PG_REP_USER'"`
 if [ "${EXISTING_ROLE}" != 1 ]; then
@@ -11,7 +10,6 @@ EOSQL
 else
 echo "Use existing user '$PG_REP_USER' for replication"
 fi
-
 cat >> ${PGDATA}/postgresql.conf <<EOF
 wal_level = replica
 archive_mode = on
