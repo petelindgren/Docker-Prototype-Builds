@@ -1,6 +1,13 @@
 # Docker Postgres Builds
 
-These Docker builds are for Postgres configured for Read-Write Replication
+These code examples demonstrate how Docker can be use to run different versions
+of Postgres in Read-Write Replication.
+
+
+## Quicklinks
+- [Version Changes](#version-changes)
+- [Testing](#testing)
+
 
 ## Version Changes
 
@@ -78,9 +85,16 @@ References: https://www.postgresql.org/docs/13/release-13.html
 
 ### Postgres 14 Specific Changes
 
+References: https://www.postgresql.org/docs/14/release-14.html
+
+- No Change Needed
+
 
 ### Postgres 15 Specific Changes
 
 
 ### Postgres 16 Specific Changes
 
+
+
+## Testing
