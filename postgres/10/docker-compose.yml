@@ -7,9 +7,9 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=pg9demo
+      - POSTGRES_USER=pg10demo
       - POSTGRES_PASSWORD=passw0rd
-      - POSTGRES_DB=pg9demo
+      - POSTGRES_DB=pg10demo
       - PG_REP_USER=rep_user
       - PG_REP_PASSWORD=use4replication
     networks:
@@ -21,9 +21,9 @@ services:
     build:
       dockerfile: ./Dockerfile.reader
     environment:
-      - POSTGRES_USER=pg9demo
+      - POSTGRES_USER=pg10demo
       - POSTGRES_PASSWORD=passw0rd
-      - POSTGRES_DB=pg9demo
+      - POSTGRES_DB=pg10demo
       - PG_REP_USER=rep_user
       - PG_REP_PASSWORD=use4replication
       - PG_WRITER_HOST=pg_writer
