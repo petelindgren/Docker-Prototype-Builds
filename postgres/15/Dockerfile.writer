@@ -1,0 +1,7 @@
+FROM postgres:15.10-bullseye
+
+COPY ./setup-writer.sh /docker-entrypoint-initdb.d/setup-writer.sh
+RUN chmod 0666 /docker-entrypoint-initdb.d/setup-writer.sh
+
+# https://stackoverflow.com/a/70040212
+COPY ./configure-rw-postgres.sql /docker-entrypoint-initdb.d/configure-rw-postgres.sql
