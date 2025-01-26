@@ -1,12 +1,7 @@
-# Docker Postgres Builds
+# PostgresSql 10.23 Replication for Docker
 
-These Docker builds are for Postgres configured for Read-Write Replication
 
-## Version Changes
-
-### Postgres 9
-Postgres 9 is the original version based on this [blog post](https://medium.com/@2hamed/replicating-postgres-inside-docker-the-how-to-3244dc2305be).
-
+## Changes for Postgres 10 Docker Build
 
 ### Postgres 10 Specific Changes
 
@@ -28,21 +23,18 @@ References: https://www.postgresql.org/docs/10/release-10.html
     >
     >In releases prior to 9.6, this parameter also allowed the values `archive` and `hot_standby`. These are still accepted but mapped to `replica`.
 
+### Implementing Postgres 10 changes in Docker
 
-### Postgres 11 Specific Changes
+- Update `Dockerfile.reader`
 
+  - Change Docker image from `alpine` to `bullseye`.
 
-### Postgres 12 Specific Changes
+  - Still need to install for `iputils-ping` so the DB Reader can ping the DB Writer, but change the install command.
 
+  - Remove `gosu` because it no longer needs to be installed separately.
 
-### Postgres 13 Specific Changes
+- Update `setup-writer.sh`
 
+  - Change `wal_level` from `hot_standby` to `replica`
 
-### Postgres 14 Specific Changes
-
-
-### Postgres 15 Specific Changes
-
-
-### Postgres 16 Specific Changes
 
