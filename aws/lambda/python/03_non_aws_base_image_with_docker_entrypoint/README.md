@@ -1,7 +1,28 @@
-# Using a non-AWS base image for Python
+# Using a non-AWS base image for Python, but use docker-entrypoint.sh
 
-This folder is a direct copy of the AWS documentation for
+This folder **_modifies_** a direct copy of the AWS documentation for
 [Using an alternative base image with the runtime interface client](https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-clients)
+
+It introduces a new `docker-entrypoint.sh` and updates the `Dockerfile`
+
+replacing old code block calling `lambda_function.handler` directly
+```
+# Set runtime interface client as default command for the container runtime
+ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric" ]
+# Pass the name of the function handler as an argument to the runtime
+CMD [ "lambda_function.handler" ]
+```
+
+with new code block that can accept a `CMD` over-ride
+```
+RUN mv docker-entrypoint.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Set runtime interface client as default command for the container runtime
+ENTRYPOINT [ "docker-entrypoint.sh" ]
+# Pass the name of the function handler as an argument to the runtime
+CMD [ "run_lambda" ]
+```
 
 
 References
@@ -15,7 +36,7 @@ References
 -   Build Docker Image
 
     ```sh
-    docker buildx build --platform linux/arm64 --provenance=false -t lambda-image-02-non-aws-base:aws-tutorial .
+    docker buildx build --platform linux/arm64 --provenance=false -t lambda-image-03-non-aws-base:docker-entrypoint .
     ```
 
 -   Install Runtime Interface Emulator
@@ -31,8 +52,8 @@ References
     ```sh
     docker run --platform linux/arm64 -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 \
         --entrypoint /aws-lambda/aws-lambda-rie \
-        lambda-image-02-non-aws-base:aws-tutorial \
-            /usr/local/bin/python -m awslambdaric lambda_function.handler
+        lambda-image-03-non-aws-base:docker-entrypoint \
+            docker-entrypoint.sh run_lambda
     ```
 
 
@@ -41,7 +62,7 @@ References
 -   Build Docker Image
 
     ```sh
-    docker buildx build --platform linux/amd64 --provenance=false -t lambda-image-02-non-aws-base:aws-tutorial .
+    docker buildx build --platform linux/amd64 --provenance=false -t lambda-image-03-non-aws-base:docker-entrypoint .
     ```
 
 -   Install Runtime Interface Emulator
@@ -57,8 +78,8 @@ References
     ```sh
     docker run --platform linux/amd64 -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 \
         --entrypoint /aws-lambda/aws-lambda-rie \
-        lambda-image-02-non-aws-base:aws-tutorial \
-            /usr/local/bin/python -m awslambdaric lambda_function.handler
+        lambda-image-03-non-aws-base:docker-entrypoint \
+            docker-entrypoint.sh run_lambda
     ```
 
 
