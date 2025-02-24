@@ -8,13 +8,6 @@ References
 - To make the image compatible with Lambda, you must include a [runtime interface client]() for your language in the image.
 
 
-References:
-- https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-instructions
-- https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-clients
-- https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-types
-
-
-
 ## Build Docker Image and Run Docker Container
 
 ### Build Image and Run Container on macOS
@@ -22,7 +15,7 @@ References:
 -   Build Docker Image
 
     ```sh
-    docker buildx build --platform linux/arm64 --provenance=false -t lambda-image-02:non-aws-base .
+    docker buildx build --platform linux/arm64 --provenance=false -t lambda-image-02-non-aws-base:aws-tutorial .
     ```
 
 -   Install Runtime Interface Emulator
@@ -38,7 +31,7 @@ References:
     ```sh
     docker run --platform linux/arm64 -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 \
         --entrypoint /aws-lambda/aws-lambda-rie \
-        lambda-image-02:non-aws-base \
+        lambda-image-02-non-aws-base:aws-tutorial \
             /usr/local/bin/python -m awslambdaric lambda_function.handler
     ```
 
@@ -48,7 +41,7 @@ References:
 -   Build Docker Image
 
     ```sh
-    docker buildx build --platform linux/amd64 --provenance=false -t lambda-image-02:non-aws-base .
+    docker buildx build --platform linux/amd64 --provenance=false -t lambda-image-02-non-aws-base:aws-tutorial .
     ```
 
 -   Install Runtime Interface Emulator
@@ -64,7 +57,7 @@ References:
     ```sh
     docker run --platform linux/amd64 -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 \
         --entrypoint /aws-lambda/aws-lambda-rie \
-        lambda-image-02:non-aws-base \
+        lambda-image-02-non-aws-base:aws-tutorial \
             /usr/local/bin/python -m awslambdaric lambda_function.handler
     ```
 

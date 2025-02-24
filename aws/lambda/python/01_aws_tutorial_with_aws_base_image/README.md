@@ -11,14 +11,14 @@ This folder is a direct copy of the AWS documentation for
 -   Build Docker Image
 
     ```sh
-    docker buildx build --platform linux/arm64 --provenance=false -t lambda-image-01:aws-base .
+    docker buildx build --platform linux/arm64 --provenance=false -t lambda-image-01-aws-base:aws-tutorial .
     ```
 
 
 -   Run Docker Image
 
     ```sh
-    docker run --platform linux/arm64 -p 9000:8080 lambda-image-01:aws-base
+    docker run --platform linux/arm64 -p 9000:8080 lambda-image-01-aws-base:aws-tutorial
     ```
 
 
@@ -27,13 +27,13 @@ This folder is a direct copy of the AWS documentation for
 -   Build Docker Image
 
     ```sh
-    docker buildx build --platform linux/amd64 --provenance=false -t lambda-image-01:aws-base .
+    docker buildx build --platform linux/amd64 --provenance=false -t lambda-image-01-aws-base:aws-tutorial .
     ```
 
 -   Run Docker Image
 
     ```sh
-    docker run --platform linux/amd64 -p 9000:8080 lambda-image-01:aws-base
+    docker run --platform linux/amd64 -p 9000:8080 lambda-image-01-aws-base:aws-tutorial
     ```
 
 ## Submit Requests
