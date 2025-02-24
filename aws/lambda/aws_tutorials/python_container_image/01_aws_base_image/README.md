@@ -8,44 +8,44 @@ This folder is a direct copy of the AWS documentation for
 
 ### Build Image and Run Container on macOS
 
-1.  Build Docker Image
+-   Build Docker Image
 
+    ```sh
+    docker buildx build --platform linux/arm64 --provenance=false -t lambda-image-01:aws-base .
     ```
-    docker buildx build --platform linux/arm64 --provenance=false -t lambda-aws-base-image:01 .
-    ```
 
 
-2.  Run Docker Image
+-   Run Docker Image
 
-    ```
-    docker run --platform linux/arm64 -p 9000:8080 lambda-aws-base-image:01
+    ```sh
+    docker run --platform linux/arm64 -p 9000:8080 lambda-image-01:aws-base
     ```
 
 
 ### Build Image and Run Container on x86
 
-1.  Build Docker Image
+-   Build Docker Image
 
-    ```
-    docker buildx build --platform linux/amd64 --provenance=false -t lambda-aws-base-image:01 .
+    ```sh
+    docker buildx build --platform linux/amd64 --provenance=false -t lambda-image-01:aws-base .
     ```
 
-2.  Run Docker Image
+-   Run Docker Image
 
-    ```
-    docker run --platform linux/amd64 -p 9000:8080 lambda-aws-base-image:01:test
+    ```sh
+    docker run --platform linux/amd64 -p 9000:8080 lambda-image-01:aws-base
     ```
 
 ## Submit Requests
 
-3.  Post event to the local endpoint
+-   Post event to the local endpoint
 
-    ```
+    ```sh
     curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'
     ```
 
-3.  Post event to the local endpoint with a JSON payload
+-   Post event to the local endpoint with a JSON payload
 
-    ```
+    ```sh
     curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"payload":"hello world!"}'
     ```
