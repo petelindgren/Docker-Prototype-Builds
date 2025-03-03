@@ -1,38 +1,31 @@
-# Using a non-AWS base image for Python
+# Using a non-AWS base image for Python with AWS Runtime Interface Emulator installed by Docker
 
 This folder is a direct copy of the AWS documentation for
-[Using an alternative base image with the runtime interface client](https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-clients)
-
-
-References
-- To make the image compatible with Lambda, you must include a [runtime interface client]() for your language in the image.
+[Using an alternative base image with the runtime interface client](https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-clients).
+- The [AWS Runtime Interface Emulator](https://github.com/aws/aws-lambda-runtime-interface-emulator/) is built into the Dockerfile image following this [README.md](https://github.com/aws/aws-lambda-runtime-interface-emulator/tree/v1.23?tab=readme-ov-file#build-rie-into-your-base-image).
+- The Dockerfile also uses a `CPU_TYPE` ARG so builds can be `x86_64` or `arm64` (see [ref](https://thelinuxcode.com/condition-in-dockerfile/))
 
 
 ## Build Docker Image and Run Docker Container
+
+### Build Dependencies
+This repo has downloaded executables from https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/tag/v1.23
+- `aws-lambda-rie-arm64`
+- `aws-lambda-rie-x86_64`
+
 
 ### Build Image and Run Container on macOS
 
 -   Build Docker Image
 
     ```sh
-    docker buildx build --platform linux/arm64 --provenance=false -t lambda-image-02-non-aws-base:aws-tutorial .
-    ```
-
--   Install Runtime Interface Emulator
-
-    ```sh
-    mkdir -p ~/.aws-lambda-rie && \
-        curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie-arm64 && \
-        chmod +x ~/.aws-lambda-rie/aws-lambda-rie
+    docker build -t lambda-image-03-non-aws-base-with-rie:aws-tutorial .
     ```
 
 -   Run Docker Image
 
     ```sh
-    docker run --platform linux/arm64 -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 \
-        --entrypoint /aws-lambda/aws-lambda-rie \
-        lambda-image-02-non-aws-base:aws-tutorial \
-            /usr/local/bin/python -m awslambdaric lambda_function.handler
+    docker run -p 9000:8080 lambda-image-03-non-aws-base-with-rie:aws-tutorial
     ```
 
 
@@ -41,24 +34,13 @@ References
 -   Build Docker Image
 
     ```sh
-    docker buildx build --platform linux/amd64 --provenance=false -t lambda-image-02-non-aws-base:aws-tutorial .
-    ```
-
--   Install Runtime Interface Emulator
-
-    ```sh
-    mkdir -p ~/.aws-lambda-rie && \
-        curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie && \
-        chmod +x ~/.aws-lambda-rie/aws-lambda-rie
+    docker build -t lambda-image-03-non-aws-base-with-rie:aws-tutorial --build-arg CPU_TYPE=x86 .
     ```
 
 -   Run Docker Image
 
     ```sh
-    docker run --platform linux/amd64 -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 \
-        --entrypoint /aws-lambda/aws-lambda-rie \
-        lambda-image-02-non-aws-base:aws-tutorial \
-            /usr/local/bin/python -m awslambdaric lambda_function.handler
+    docker run -p 9000:8080 lambda-image-03-non-aws-base-with-rie:aws-tutorial
     ```
 
 
