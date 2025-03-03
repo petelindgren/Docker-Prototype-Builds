@@ -1,4 +1,4 @@
-# Using a non-AWS base image for Python
+# Using a non-AWS base image for Python with AWS Runtime Interface Emulator installed locally
 
 This folder is a direct copy of the AWS documentation for
 [Using an alternative base image with the runtime interface client](https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-clients)
@@ -18,7 +18,7 @@ References
     docker buildx build --platform linux/arm64 --provenance=false -t lambda-image-02-non-aws-base:aws-tutorial .
     ```
 
--   Install Runtime Interface Emulator
+-   Install Runtime Interface Emulator locally
 
     ```sh
     mkdir -p ~/.aws-lambda-rie && \
@@ -44,7 +44,7 @@ References
     docker buildx build --platform linux/amd64 --provenance=false -t lambda-image-02-non-aws-base:aws-tutorial .
     ```
 
--   Install Runtime Interface Emulator
+-   Install Runtime Interface Emulator locally
 
     ```sh
     mkdir -p ~/.aws-lambda-rie && \
