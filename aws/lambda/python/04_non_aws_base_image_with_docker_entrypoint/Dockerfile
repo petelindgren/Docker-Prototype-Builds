@@ -41,8 +41,9 @@ WORKDIR ${FUNCTION_DIR}
 COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
 COPY --from=build-image /usr/local/bin/aws-lambda-rie /usr/local/bin/aws-lambda-rie
 
-RUN mv docker-entrypoint.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+# Combine RUN commands to reduce layers in final image
+RUN mv docker-entrypoint.sh /usr/local/bin && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Set runtime interface client as default command for the container runtime
 ENTRYPOINT [ "docker-entrypoint.sh" ]
