@@ -1,59 +1,41 @@
-# Using a non-AWS base image for Python, but use docker-entrypoint.sh
+# Refactor Dockerfile image build
 
-This folder **_modifies_** a direct copy of the AWS documentation for
-[Using an alternative base image with the runtime interface client](https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-clients)
+- What: Refactor previous example to support multiple lambda functions.
+- Why: This creates the building blocks to add more lambda functions.
+- How:
+  - Use a non-AWS base image for Python (see [Using an alternative base image with the runtime interface client](https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-clients))
+  - Dockerfile build installs:
+    - [AWS Runtime Interface Emulator](https://github.com/aws/aws-lambda-runtime-interface-emulator/). (see [README.md instructions](https://github.com/aws/aws-lambda-runtime-interface-emulator/tree/v1.23?tab=readme-ov-file#build-rie-into-your-base-image))  
+    - The Dockerfile uses a `CPU_TYPE` ARG so builds can use `x86_64` or `arm64` versions of the AWS Runtime Interface Emulator (see [ref](https://thelinuxcode.com/condition-in-dockerfile/))
+    - `awslambdaric`
+  - Introduces `docker-entrypoint.sh` for a future Dockerfile build that has multiple lambdas.
 
-It introduces a new `docker-entrypoint.sh` and updates the `Dockerfile`
+## Changes from previous example
 
-replacing old code block calling `lambda_function.handler` directly
-```
-# Set runtime interface client as default command for the container runtime
-ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric" ]
-# Pass the name of the function handler as an argument to the runtime
-CMD [ "lambda_function.handler" ]
-```
-
-with new code block that can accept a `CMD` over-ride
-```
-RUN mv docker-entrypoint.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
-# Set runtime interface client as default command for the container runtime
-ENTRYPOINT [ "docker-entrypoint.sh" ]
-# Pass the name of the function handler as an argument to the runtime
-CMD [ "run_lambda" ]
-```
+- The Dockerfile `ENTRYPOINT` replaces `entry_script.sh` with new `docker-entrypoint.sh`
+  - `docker-entrypoint.sh` incorporates `entry_script.sh` as new `set_aws_lambda_runtime()` shell script function.
 
 
-References
-- To make the image compatible with Lambda, you must include a [runtime interface client]() for your language in the image.
+## Building Docker Image and Running Docker Container
 
+### Build Dependencies
+This repo has downloaded executables from https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/tag/v1.23
+- `aws-lambda-rie-arm64`
+- `aws-lambda-rie-x86_64`
 
-## Build Docker Image and Run Docker Container
 
 ### Build Image and Run Container on macOS
 
 -   Build Docker Image
 
     ```sh
-    docker buildx build --platform linux/arm64 --provenance=false -t lambda-image-03-non-aws-base:docker-entrypoint .
-    ```
-
--   Install Runtime Interface Emulator
-
-    ```sh
-    mkdir -p ~/.aws-lambda-rie && \
-        curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie-arm64 && \
-        chmod +x ~/.aws-lambda-rie/aws-lambda-rie
+    docker build -t lambda-image-04-non-aws-base-with-rie:arm64 .
     ```
 
 -   Run Docker Image
 
     ```sh
-    docker run --platform linux/arm64 -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 \
-        --entrypoint /aws-lambda/aws-lambda-rie \
-        lambda-image-03-non-aws-base:docker-entrypoint \
-            docker-entrypoint.sh run_lambda
+    docker run -p 9000:8080 lambda-image-04-non-aws-base-with-rie:arm64
     ```
 
 
@@ -62,24 +44,13 @@ References
 -   Build Docker Image
 
     ```sh
-    docker buildx build --platform linux/amd64 --provenance=false -t lambda-image-03-non-aws-base:docker-entrypoint .
-    ```
-
--   Install Runtime Interface Emulator
-
-    ```sh
-    mkdir -p ~/.aws-lambda-rie && \
-        curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie && \
-        chmod +x ~/.aws-lambda-rie/aws-lambda-rie
+    docker build -t lambda-image-04-non-aws-base-with-rie:x86_64 --build-arg CPU_TYPE=x86 .
     ```
 
 -   Run Docker Image
 
     ```sh
-    docker run --platform linux/amd64 -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 \
-        --entrypoint /aws-lambda/aws-lambda-rie \
-        lambda-image-03-non-aws-base:docker-entrypoint \
-            docker-entrypoint.sh run_lambda
+    docker run -p 9000:8080 lambda-image-04-non-aws-base-with-rie:x86_64
     ```
 
 
