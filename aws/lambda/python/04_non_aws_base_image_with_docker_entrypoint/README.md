@@ -1,12 +1,14 @@
-# Using a non-AWS base image for Python with AWS Runtime Interface Emulator installed by Docker with docker-entrypoint.sh
+# Refactor Dockerfile image build
 
-## Features
-- Use a non-AWS base image for Python (see [Using an alternative base image with the runtime interface client](https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-clients))
-- Dockerfile build installs:
-  - [AWS Runtime Interface Emulator](https://github.com/aws/aws-lambda-runtime-interface-emulator/). (see [README.md instructions](https://github.com/aws/aws-lambda-runtime-interface-emulator/tree/v1.23?tab=readme-ov-file#build-rie-into-your-base-image))  
-  - The Dockerfile uses a `CPU_TYPE` ARG so builds can use `x86_64` or `arm64` versions of the AWS Runtime Interface Emulator (see [ref](https://thelinuxcode.com/condition-in-dockerfile/))
-  - `awslambdaric`
-- Introduces `docker-entrypoint.sh` for a future Dockerfile build that has multiple lambdas.
+- What: Refactor previous example to support multiple lambda functions.
+- Why: This creates the building blocks to add more lambda functions.
+- How:
+  - Use a non-AWS base image for Python (see [Using an alternative base image with the runtime interface client](https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-clients))
+  - Dockerfile build installs:
+    - [AWS Runtime Interface Emulator](https://github.com/aws/aws-lambda-runtime-interface-emulator/). (see [README.md instructions](https://github.com/aws/aws-lambda-runtime-interface-emulator/tree/v1.23?tab=readme-ov-file#build-rie-into-your-base-image))  
+    - The Dockerfile uses a `CPU_TYPE` ARG so builds can use `x86_64` or `arm64` versions of the AWS Runtime Interface Emulator (see [ref](https://thelinuxcode.com/condition-in-dockerfile/))
+    - `awslambdaric`
+  - Introduces `docker-entrypoint.sh` for a future Dockerfile build that has multiple lambdas.
 
 ## Changes from previous example
 
