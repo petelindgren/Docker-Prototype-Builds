@@ -19,13 +19,13 @@ This repo has downloaded executables from https://github.com/aws/aws-lambda-runt
 -   Build Docker Image
 
     ```sh
-    docker build -t lambda-image-03-non-aws-base-with-rie:aws-tutorial .
+    docker build -t lambda-image-03-non-aws-base-with-rie:arm64 .
     ```
 
 -   Run Docker Image
 
     ```sh
-    docker run -p 9000:8080 lambda-image-03-non-aws-base-with-rie:aws-tutorial
+    docker run -p 9000:8080 lambda-image-03-non-aws-base-with-rie:arm64
     ```
 
 
@@ -34,13 +34,13 @@ This repo has downloaded executables from https://github.com/aws/aws-lambda-runt
 -   Build Docker Image
 
     ```sh
-    docker build -t lambda-image-03-non-aws-base-with-rie:aws-tutorial --build-arg CPU_TYPE=x86 .
+    docker build -t lambda-image-03-non-aws-base-with-rie:x86_64 --build-arg CPU_TYPE=x86 .
     ```
 
 -   Run Docker Image
 
     ```sh
-    docker run -p 9000:8080 lambda-image-03-non-aws-base-with-rie:aws-tutorial
+    docker run -p 9000:8080 lambda-image-03-non-aws-base-with-rie:x86_64
     ```
 
 
