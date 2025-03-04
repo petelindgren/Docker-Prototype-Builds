@@ -45,4 +45,5 @@ RUN mv entry_script.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/entry_script.sh
 
 ENTRYPOINT [ "entry_script.sh" ]
-# CMD is replace by the entry_script.sh
+
+# CMD is superceded by the entry_script.sh
