@@ -25,6 +25,21 @@ This repo has downloaded executables from https://github.com/aws/aws-lambda-runt
 - `aws-lambda-rie-x86_64`
 
 
+### Build Image and Run Application with Docker Compose
+
+-   Start application with docker compose in detached mode
+
+    ```sh
+    docker compose up -d
+    ```
+
+-   Stop application with docker compose
+
+    ```sh
+    docker compose down
+    ```
+
+
 ### Build Image and Run Container on macOS
 
 -   Build Docker Image
