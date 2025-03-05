@@ -22,9 +22,13 @@ set_aws_lambda_runtime
 # echo "exec lambda with runtime: '${RUNTIME}'"
 
 case "$1" in
-    run_lambda)
+    run_lambda1)
         shift
-        ${RUNTIME} lambda_function.handler
+        ${RUNTIME} lambda_function1.handler
+        ;;
+    run_lambda2)
+        shift
+        ${RUNTIME} lambda_function2.handler
         ;;
     help)
         shift

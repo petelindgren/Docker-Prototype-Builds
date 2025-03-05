@@ -1,7 +1,7 @@
 import sys
 def handler(event, context):
     return {
-        "lambda": "Lambda example #05",
+        "lambda": "Lambda1 example #06",
         "python_version": sys.version,
         "docker_image": "AWS Base Image",
         "has_runtime_interface_emulator": True,
