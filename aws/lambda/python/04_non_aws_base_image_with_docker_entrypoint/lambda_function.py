@@ -6,4 +6,5 @@ def handler(event, context):
         "docker_image": "AWS Base Image",
         "has_runtime_interface_emulator": True,
         "has_docker_entrypoint": True,
+        "uses_docker_compose": False,
     }

@@ -12,8 +12,12 @@
 
 ## Changes from previous example
 
-- The Dockerfile `ENTRYPOINT` replaces `entry_script.sh` with new `docker-entrypoint.sh`
-  - `docker-entrypoint.sh` incorporates `entry_script.sh` as new `set_aws_lambda_runtime()` shell script function.
+- Update `Dockerfile`
+  - Change `ARG FUNCTION_DIR="/function"` to `ARG FUNCTION_DIR="/app"`
+  - Use `ENTRYPOINT` to replace `entry_script.sh` with new `docker-entrypoint.sh`
+- Add new `docker-entrypoint.sh` which incorporates business logic in `entry_script.sh` in a new `set_aws_lambda_runtime()` shell script function.
+- Update `lambda_function.py` to return a JSON response.
+  - Add `"uses_docker_compose": False`
 
 
 ## Building Docker Image and Running Docker Container

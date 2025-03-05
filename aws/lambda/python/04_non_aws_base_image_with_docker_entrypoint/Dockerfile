@@ -1,5 +1,5 @@
 # Define custom function directory
-ARG FUNCTION_DIR="/function"
+ARG FUNCTION_DIR="/app"
 ARG CPU_TYPE
 
 FROM python:3.12 AS build-image
