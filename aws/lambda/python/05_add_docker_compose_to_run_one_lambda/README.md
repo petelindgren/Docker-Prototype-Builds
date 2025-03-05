@@ -1,4 +1,4 @@
-# Refactor Dockerfile image build
+# Add docker-compose.yml to run one lambda
 
 - What: Refactor previous example to support multiple lambda functions.
 - Why: This creates the building blocks to add more lambda functions.
@@ -12,12 +12,9 @@
 
 ## Changes from previous example
 
-- Update `Dockerfile`
-  - Change `ARG FUNCTION_DIR="/function"` to `ARG FUNCTION_DIR="/app"`
-  - Use `ENTRYPOINT` to replace `entry_script.sh` with new `docker-entrypoint.sh`
-- Add new `docker-entrypoint.sh` which incorporates business logic in `entry_script.sh` in a new `set_aws_lambda_runtime()` shell script function.
-- Update `lambda_function.py` to return a JSON response.
-  - Add `"uses_docker_compose": False`
+- Add new `docker-compose.yml` to start and stop container with docker compose v2
+- Update `lambda_function.py` JSON response
+  - Return `"uses_docker_compose": True`
 
 
 ## Building Docker Image and Running Docker Container
@@ -33,13 +30,13 @@ This repo has downloaded executables from https://github.com/aws/aws-lambda-runt
 -   Build Docker Image
 
     ```sh
-    docker build -t lambda-image-04-non-aws-base-with-rie:arm64 .
+    docker build -t lambda-image-05-non-aws-base-with-rie:arm64 .
     ```
 
 -   Run Docker Image
 
     ```sh
-    docker run -p 9000:8080 lambda-image-04-non-aws-base-with-rie:arm64
+    docker run -p 9000:8080 lambda-image-05-non-aws-base-with-rie:arm64
     ```
 
 
@@ -48,13 +45,13 @@ This repo has downloaded executables from https://github.com/aws/aws-lambda-runt
 -   Build Docker Image
 
     ```sh
-    docker build -t lambda-image-04-non-aws-base-with-rie:x86_64 --build-arg CPU_TYPE=x86 .
+    docker build -t lambda-image-05-non-aws-base-with-rie:x86_64 --build-arg CPU_TYPE=x86 .
     ```
 
 -   Run Docker Image
 
     ```sh
-    docker run -p 9000:8080 lambda-image-04-non-aws-base-with-rie:x86_64
+    docker run -p 9000:8080 lambda-image-05-non-aws-base-with-rie:x86_64
     ```
 
 
