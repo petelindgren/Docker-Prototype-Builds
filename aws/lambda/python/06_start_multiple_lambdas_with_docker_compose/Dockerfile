@@ -49,4 +49,4 @@ RUN mv docker-entrypoint.sh /usr/local/bin && \
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 # Pass the name of the function handler as an argument to the runtime
-CMD [ "run_lambda" ]
+CMD [ "start" ]

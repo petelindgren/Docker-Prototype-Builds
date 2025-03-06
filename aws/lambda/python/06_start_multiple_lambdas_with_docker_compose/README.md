@@ -9,12 +9,17 @@
     - The Dockerfile uses a `CPU_TYPE` ARG so builds can use `x86_64` or `arm64` versions of the AWS Runtime Interface Emulator (see [ref](https://thelinuxcode.com/condition-in-dockerfile/))
     - `awslambdaric`
   - Introduces `docker-entrypoint.sh` for a future Dockerfile build that has multiple lambdas.
+  - Use docker extension fields https://docs.docker.com/reference/compose-file/extension/
 
 ## Changes from previous example
 
-- Add new `docker-compose.yml` to start and stop container with docker compose v2
-- Update `lambda_function.py` JSON response
-  - Return `"uses_docker_compose": True`
+- Update `Dockerfile`
+  - replace `CMD [ "run_lambda" ]` with `CMD [ "start" ]` which will not have a match in the `docker-entrypoint.sh` case-switch lookup
+- Update `docker-compose.yml` to start and stop container with docker compose v2
+  - remove obsolete attribute `version`
+  - add a `command` over-ride for each lambda and start each container on a different port
+- Rename `lambda_function.py` to `lambda_function1.py`
+- Create new `lambda_function2.py` as copy of `lambda_function1.py`
 
 
 ## Building Docker Image and Running Docker Container
@@ -72,14 +77,14 @@ This repo has downloaded executables from https://github.com/aws/aws-lambda-runt
 
 ## Submit Requests
 
--   Post event to the local endpoint
+-   Post event to the local endpoint for Lambda 1
 
     ```sh
-    curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'
+    curl "http://localhost:9001/2015-03-31/functions/function/invocations" -d '{}'
     ```
 
--   Post event to the local endpoint with a JSON payload
+-   Post event to the local endpoint for Lambda 2
 
     ```sh
-    curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"payload":"hello world!"}'
+    curl "http://localhost:9002/2015-03-31/functions/function/invocations" -d '{}'
     ```
