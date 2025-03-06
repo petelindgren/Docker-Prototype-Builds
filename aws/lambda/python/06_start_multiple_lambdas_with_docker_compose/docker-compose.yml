@@ -1,0 +1,21 @@
+services:
+  lambda1:
+    # see https://docs.docker.com/reference/compose-file/build/
+    build:
+      context: .
+    # name build image for re-use (see https://github.com/docker/compose/releases/tag/1.6.0)
+    image: example_lambda:06
+    command: run_lambda1
+    ports:
+      - "127.0.0.1:9001:8080"
+  lambda2:
+    image: example_lambda:06
+    command: run_lambda2
+    ports:
+      - "127.0.0.1:9002:8080"
+    depends_on:
+      - lambda1
+
+networks:
+  example_app:
+    driver: bridge
