@@ -13,7 +13,10 @@
 - Start nginx first as reverse proxy even when not all upstream hosts are available
   - Update `docker-compose.yml` to start nginx first and then two API services by making
     both API services `depends_on` the `nginx_reverse_proxy`.
-  - Update `nginx.conf` with `proxy_pass` configuration for two API services
+  - Update `nginx.conf` to `proxy_pass` to the `$upstream` for both API services.
+    (see [Understanding Docker DNS](https://medium.com/@prajwal.chin/understanding-docker-dns-2ed4b070a0)
+
+    >Docker daemon as the DNS server: Containers use the Docker daemon’s embedded DNS resolver, which listens on the default DNS server IP address 127.0.0.11. This DNS server handles DNS queries from containers and forwards them to the appropriate DNS server for resolution.
 
 
 ## Building Docker Images and Start Containers
