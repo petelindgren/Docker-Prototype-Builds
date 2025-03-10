@@ -1,4 +1,4 @@
-# Run a multi-container nginx reverse proxy with an API service
+# Run a multi-container nginx reverse proxy with Two API services
 
 - What: Run a web server built from a custon nginx Dockerfile
 - Why: Introduce custom Dockerfile to nginx build

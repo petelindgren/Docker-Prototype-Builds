@@ -1,4 +1,4 @@
-# Run a multi-container nginx reverse proxy with an API service
+# Run a multi-container nginx reverse proxy with One API service
 
 - What: Run a web server built from a custon nginx Dockerfile
 - Why: Introduce custom Dockerfile to nginx build
@@ -38,6 +38,15 @@ Use your favorite browser.
 
 1.  Test nginx static page: http://127.0.0.1:8080/
 
-2.  Test nginx reverse proxy forwards to the API server http://127.0.0.1:8080/fastapi/ or http://localhost:8080/fastapi/
+2.  Test nginx reverse proxy forwards to the API server
 
-3.  Test nginx does not redirect as _intuitively_ expected when missing trailing slash `/` http://127.0.0.1:8080/fastapi or http://localhost:8080/fastapi (see [Nginx: everything about proxy_pass](https://dev.to/danielkun/nginx-everything-about-proxypass-2ona))
+    - http://127.0.0.1:8080/fastapi/ or http://localhost:8080/fastapi/
+
+3.  Test nginx does not redirect as _intuitively_ expected when missing trailing slash `/` (see [Nginx: everything about proxy_pass](https://dev.to/danielkun/nginx-everything-about-proxypass-2ona))
+
+    - http://127.0.0.1:8080/fastapi or http://localhost:8080/fastapi
+
+4.  Demonstrate that the API services are port forwarded
+
+    - http://127.0.0.1:9001/
+    - http://127.0.0.1:9002/
