@@ -6,6 +6,9 @@
   - https://www.docker.com/blog/how-to-use-the-official-nginx-docker-image/
   - https://dev.to/danielkun/nginx-everything-about-proxypass-2ona
   - https://geshan.com.np/blog/2024/03/nginx-docker-compose/
+  - Use custom network
+
+    >container to container hostname resolution does not work with the default Bridge network. The only way for it to work is with a custom made network. [ref](https://medium.com/@discotimetraveler/there-seems-to-be-no-mention-that-container-to-container-hostname-resolution-does-not-work-with-the-e11755f51d3a)
 
 
 ## Changes from previous example
