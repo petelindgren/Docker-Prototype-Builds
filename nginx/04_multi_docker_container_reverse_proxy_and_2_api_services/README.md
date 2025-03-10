@@ -9,8 +9,16 @@
 
 
 ## Changes from previous example
-- Add `Dockerfile`
-- Remove `site-content` directory
+- Update example number in `index.html`
+- Update existing code for FastAPI service1
+  - Rename `Dockerfile.fastapi` to `Dockerfile.fastapi1`
+  - Rename `main.py` to `main1.py`
+- Add new code for FastAPI service2
+  - Copy `Dockerfile.fastapi1` to `Dockerfile.fastapi2`
+  - Copy `main1.py` to `main2.py`
+- Update nginx so it is started as reverse proxy
+  - Update `nginx.conf` with `proxy_pass` configuration for two API services
+  - Update `docker-compose.yml` to start two API services
 
 
 ## Building Docker Images and Start Containers

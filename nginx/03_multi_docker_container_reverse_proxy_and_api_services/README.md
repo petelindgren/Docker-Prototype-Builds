@@ -9,8 +9,16 @@
 
 
 ## Changes from previous example
-- Add `Dockerfile`
-- Remove `site-content` directory
+- Update example number in `index.html`
+- Add new code for FastAPI service
+  - Add `Dockerfile.fastapi`
+  - Add `main.py`
+  - Add `requirements.txt`
+- Update nginx so it is started as reverse proxy
+  - Rename `Dockerfile` to `Dockerfile.nginx` (for clarity, not because it was required)
+  - Remove `site-content` directory
+  - Add `nginx.conf`
+  - Update `docker-compose.yml`
 
 
 ## Building Docker Images and Start Containers

@@ -7,6 +7,7 @@ services:
     image: nginx03-fastapi
     container_name: nginx03-fastapi
     command: python -m uvicorn main:app --host 0.0.0.0 --port 8000
+    # port forwarding is only done as part of this example and is not required
     ports:
       - 9000:8000
     networks:
