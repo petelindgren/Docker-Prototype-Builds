@@ -1,0 +1,55 @@
+services:
+
+# the reverse proxy must be started after the fastapi_service because nginx likes proxy_passes to be running
+  nginx_reverse_proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    image: nginx05-reverse-proxy
+    container_name: nginx05-reverse-proxy
+    # depends_on:
+    #   - fastapi_service1
+    #   - fastapi_service2
+    volumes:
+    - ./templates:/etc/nginx/templates
+    ports:
+    - "8080:80"
+    environment:
+    - NGINX_HOST=foobar.com
+    - NGINX_PORT=80
+    networks:
+      - frontend
+      - backend
+
+  # fastapi_service1:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.fastapi1
+  #   image: nginx05-fastapi1
+  #   container_name: nginx05-fastapi1
+  #   depends_on:
+  #     - nginx_reverse_proxy
+  #   command: python -m uvicorn main:app --host 0.0.0.0 --port 8000
+  #   # port forwarding is only done as part of this example and is not required
+  #   ports:
+  #     - 9001:8000
+  #   networks:
+  #     - backend
+  # fastapi_service2:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.fastapi2
+  #   image: nginx05-fastapi2
+  #   container_name: nginx05-fastapi
+  #   depends_on:
+  #     - nginx_reverse_proxy
+  #   command: python -m uvicorn main:app --host 0.0.0.0 --port 8000
+  #   # port forwarding is only done as part of this example and is not required
+  #   ports:
+  #     - 9002:8000
+  #   networks:
+  #     - backend
+
+networks: 
+  frontend:
+  backend:
