@@ -15,6 +15,12 @@
 
 - Update `Dockerfile`
 - Update `docker-compose.yml` to start and stop container with docker compose v2
+- Add copy of files example `nginx/05_start_nginx_first_in_multi_container_build_with_apis_offline`
+  - `Dockerfile.nginx`
+  - `index.html`
+  - `nginx.conf`
+  - The `nginx_reverse_proxy` service from `docker-compose.yml`
+    - Update the networks for the lambdas
 
 
 ## Building Docker Image and Running Docker Container
