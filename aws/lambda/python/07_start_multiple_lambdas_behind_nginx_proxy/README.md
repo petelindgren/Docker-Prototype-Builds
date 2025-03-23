@@ -20,7 +20,9 @@
   - `index.html`
   - `nginx.conf`
   - The `nginx_reverse_proxy` service from `docker-compose.yml`
-    - Update the networks for the lambdas
+- Update `docker-compose.yml`
+  - Change `nginx_reverse_proxy` port forwarding from `"8080:80"` to `"8000:80"`
+  - Change the networks for the lambdas
 
 
 ## Building Docker Image and Running Docker Container
