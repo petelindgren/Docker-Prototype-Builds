@@ -23,6 +23,9 @@
 - Update `docker-compose.yml`
   - Change `nginx_reverse_proxy` port forwarding from `"8080:80"` to `"8000:80"`
   - Change the networks for the lambdas
+- Update `nginx.conf`
+  - change the redirect `$upstream` to be compatible with AWS lambdas
+  - handle the `-d '{}'` part of the `curl ... -d '{}'` command by rewriting the API request method from GET to POST.
 
 
 ## Building Docker Image and Running Docker Container
@@ -78,7 +81,8 @@ This repo has downloaded executables from https://github.com/aws/aws-lambda-runt
     ```
 
 
-## Submit Requests
+## Submit Requests from Terminal Window
+This section reproduces the lambda calls from the AWS lambda tutorials.
 
 -   Post event to the local endpoint for Lambda 1
 
@@ -91,3 +95,41 @@ This repo has downloaded executables from https://github.com/aws/aws-lambda-runt
     ```sh
     curl "http://localhost:9002/2015-03-31/functions/function/invocations" -d '{}'
     ```
+
+
+## Submit Requests from nginx Docker Container
+This section demonstrates how to re-create lambda calls from the AWS lambda tutorials within the nginx Docker container.
+
+-   Open Docker Desktop and the **nginx** container (it might be named `nginx-reverse-proxy07`)
+
+-   Go to the `Exec` tab
+
+-   Post event to the local endpoint for Lambda 1
+
+    ```sh
+    curl "http://lambda1:8080/2015-03-31/functions/function/invocations" -d '{}'
+    ```
+
+-   Post event to the local endpoint for Lambda 2
+
+    ```sh
+    curl "http://lambda2:8080/2015-03-31/functions/function/invocations" -d '{}'
+    ```
+
+- Confirm that the response in the **nginx** container matches the response from the Terminal Window
+
+
+## Submit Requests to a web browser
+This section demonstrates how to re-create lambda calls from the AWS lambda tutorials within the nginx Docker container.
+
+-   Open any web browser
+
+-   Submit this URL for lambda1: http://localhost:8000/lambda1/
+
+-   Submit this URL for lambda2: http://localhost:8000/lambda2/
+
+    ```sh
+    curl "http://lambda2:8080/2015-03-31/functions/function/invocations" -d '{}'
+    ```
+
+- Confirm that the response in the Web Browser matches the response from the Terminal Window and the **nginx** container
