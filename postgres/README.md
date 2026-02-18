@@ -17,8 +17,8 @@ of Postgres in Read-Write Replication.
 - C = Changed File
 - D = Deleted File
 
-| File | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 |
-|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| File | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | `configure-rw-postgres.sql` | - | - | N | - | - | - | - | - |
 | `docker-compose.yml` | I | - | - | - | - | - | - | - |
 | `docker-entrypoint.sh` | I | - | - | C | - | - | - | C |
@@ -137,6 +137,12 @@ References: https://www.postgresql.org/docs/16/release-16.html
   - https://www.postgresql.org/docs/16/recovery-config.html
   - https://www.postgresql.org/docs/16/release-16.html#RELEASE-16-MIGRATION
 
+
+### Postgres 17 Specific Changes
+
+References: https://www.postgresql.org/docs/17/release-17.html
+
+- No Change Needed
 
 
 ## Testing
