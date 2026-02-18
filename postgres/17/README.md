@@ -26,6 +26,8 @@ References: https://www.postgresql.org/docs/17/release-17.html
 
 ### Implementing Postgres 17 in Docker
 
+- Remove deprecated `version` from `docker-compose.yml`
+
 - Update `Dockerfile.reader` and `Dockerfile.writer`
 
   - Change Postgres Docker image from `bullseye` to `bookworm`

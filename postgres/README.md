@@ -19,13 +19,13 @@ of Postgres in Read-Write Replication.
 
 | File | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `configure-rw-postgres.sql` | - | - | N | - | - | - | - | - |
-| `docker-compose.yml` | I | - | - | - | - | - | - | - |
-| `docker-entrypoint.sh` | I | - | - | C | - | - | - | C |
-| `Dockerfile.reader` | I | C | - | - | - | - | - | - |
-| `Dockerfile.writer` | I | - | C | - | - | - | - | - |
-| `gosu` | I | D | - | - | - | - | - | - |
-| `setup-writer.sh` | I | C | - | - | C | - | - | - |
+| `configure-rw-postgres.sql` | - | - | N | - | - | - | - | - | - |
+| `docker-compose.yml` | I | - | - | - | - | - | - | - | - |
+| `docker-entrypoint.sh` | I | - | - | C | - | - | - | C | - |
+| `Dockerfile.reader` | I | C | - | - | - | - | - | - | C |
+| `Dockerfile.writer` | I | - | C | - | - | - | - | - | C |
+| `gosu` | I | D | - | - | - | - | - | - | - |
+| `setup-writer.sh` | I | C | - | - | C | - | - | - | - |
 
 
 ## Postgres Version Changes
