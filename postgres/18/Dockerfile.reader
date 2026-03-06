@@ -12,5 +12,4 @@ COPY ./configure-rw-postgres.sql /docker-entrypoint-initdb.d/configure-rw-postgr
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-# CMD ["gosu", "postgres", "postgres"]
-CMD ["ping", "4.2.2.1"]
+CMD ["gosu", "postgres", "postgres"]

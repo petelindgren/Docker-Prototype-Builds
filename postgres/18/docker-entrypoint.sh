@@ -23,11 +23,6 @@ echo "host replication all 0.0.0.0/0 md5" >> "$PGDATA/pg_hba.conf"
 
 set -e
 
-# echo "For postgres18, create directory $PGDATA before running creating the standby.signal"
-# mkdir -p ${PGDATA}
-# chown postgres ${PGDATA} -R
-# chmod 700 ${PGDATA} -R
-
 # PostgreSQL 12 eliminates recovery.conf and adds configuration for replicas and standbys to postgresql.conf
 # https://www.postgresql.org/docs/12/recovery-config.html
 # https://www.postgresql.org/docs/12/hot-standby.html
@@ -37,9 +32,15 @@ primary_conninfo = 'host=$PG_WRITER_HOST port=${PG_WRITER_PORT:-5432} user=$PG_R
 EOF
 
 # PostgreSQL 12 replaced `standby_mode` with the `standy.signal` file in the PGDATA directory 
-# touch ${PGDATA}/standby.signal
+touch ${PGDATA}/standby.signal
 
-echo "Update permissions on postgres"
+# To fix this error:
+#   postgres: could not access directory "/var/lib/postgresql/18/docker": Permission denied
+# Change directory permissions from this:
+#   drwx------ 3 root     root
+# To this:
+#   drwxr-xr-x 3 root     root
+echo "Update postgresql/18 directory so is is executable"
 chmod 755 /var/lib/postgresql/18
 
 echo "Update permissions on $PGDATA"
