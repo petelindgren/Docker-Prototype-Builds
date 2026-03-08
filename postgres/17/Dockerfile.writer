@@ -8,3 +8,6 @@ RUN chmod 0666 /docker-entrypoint-initdb.d/setup-writer.sh
 
 # https://stackoverflow.com/a/70040212
 COPY ./configure-rw-postgres.sql /docker-entrypoint-initdb.d/configure-rw-postgres.sql
+
+# https://docs.docker.com/guides/pre-seeding/
+COPY ./seed_data.sql /docker-entrypoint-initdb.d/seed_data.sql
