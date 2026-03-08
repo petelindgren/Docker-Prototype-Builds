@@ -1,0 +1,8 @@
+FROM postgres:17.8-bookworm
+
+# Install iputils-ping so the Reader can ping the Writer
+# Install htop to interactively monitor the system in real-time
+RUN apt-get update && apt-get install iputils-ping htop -y && apt-get clean
+
+# Create music database
+COPY ./create_subscription_db.sql /docker-entrypoint-initdb.d/1-create_subscription_db.sql
