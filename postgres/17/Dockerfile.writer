@@ -3,11 +3,21 @@ FROM postgres:17.8-bookworm
 # Install htop to interactively monitor the system in real-time
 RUN apt-get update && apt-get install htop -y && apt-get clean
 
-COPY ./setup-writer.sh /docker-entrypoint-initdb.d/setup-writer.sh
-RUN chmod 0666 /docker-entrypoint-initdb.d/setup-writer.sh
+# Order of Operations matters when running shell scripts and SQL
+COPY ./setup-writer.sh /docker-entrypoint-initdb.d/1-setup-writer.sh
+RUN chmod 0666 /docker-entrypoint-initdb.d/1-setup-writer.sh
 
-# https://stackoverflow.com/a/70040212
-COPY ./configure-rw-postgres.sql /docker-entrypoint-initdb.d/configure-rw-postgres.sql
+# Configure Postgres for RW
+#   https://stackoverflow.com/a/70040212
+COPY ./configure-rw-postgres.sql /docker-entrypoint-initdb.d/2-configure-rw-postgres.sql
 
-# https://docs.docker.com/guides/pre-seeding/
-COPY ./seed_data.sql /docker-entrypoint-initdb.d/seed_data.sql
+# Create Database and Tables BEFORE creating PUBLICATIONs
+#   https://docs.docker.com/guides/pre-seeding/
+COPY ./seed_data.sql /docker-entrypoint-initdb.d/3-seed_data.sql
+
+# Make sure wal_level = logical (requirec for creating PUBLICATIONs)
+COPY ./setup-publisher.sh /docker-entrypoint-initdb.d/4-setup-publisher.sh
+RUN chmod 0666 /docker-entrypoint-initdb.d/4-setup-publisher.sh
+
+# Create Postgres PUBLICATIONs
+COPY ./create_pub.sql /docker-entrypoint-initdb.d/5-create_pub.sql

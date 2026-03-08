@@ -10,6 +10,8 @@ services:
       - POSTGRES_DB=pg17demo
       - PG_REP_USER=rep_user
       - PG_REP_PASSWORD=use4replication
+      - PUB_SUB_USER=pub_user
+      - PUB_SUB_PASSWORD=use4pubsub
     networks:
       default:
         aliases:
