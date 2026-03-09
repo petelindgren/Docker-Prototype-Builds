@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Set up the Reader server..."
+
 if [ ! -s "$PGDATA/PG_VERSION" ]; then
 # Do not use a .pgpass file in production because of security concerns
 echo "*:*:*:$PG_REP_USER:$PG_REP_PASSWORD" > ~/.pgpass
@@ -33,7 +35,7 @@ EOF
 touch ${PGDATA}/standby.signal
 
 echo "Update permissions on $PGDATA"
-chown postgres. ${PGDATA} -R
+chown postgres ${PGDATA} -R
 chmod 700 ${PGDATA} -R
 
 fi
