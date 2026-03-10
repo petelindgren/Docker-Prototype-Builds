@@ -46,6 +46,14 @@ services:
       - PG_PUBLISHER_HOST=pg_writer
     command:
       - "postgres"
+    post_start:
+      - command: bash /setup-subscription.sh
+    healthcheck:
+      # Use healthcheck to setup SUBSCRIPTIONs to PUBLICATIONs
+      test: ["CMD", "bash", "/setup-subscription.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 volumes:
   pg_data:
