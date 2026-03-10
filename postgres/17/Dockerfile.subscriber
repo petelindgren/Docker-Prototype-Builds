@@ -6,3 +6,7 @@ RUN apt-get update && apt-get install iputils-ping htop -y && apt-get clean
 
 # Create music database
 COPY ./create_subscription_db.sql /docker-entrypoint-initdb.d/1-create_subscription_db.sql
+
+# Copy the startup.sh
+COPY ./setup-subscription.sh /setup-subscription.sh
+RUN chmod +x /setup-subscription.sh
