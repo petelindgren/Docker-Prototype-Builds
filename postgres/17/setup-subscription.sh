@@ -1,7 +1,18 @@
 #!/bin/bash
-set -e
 
 echo "Running setup-subscription.sh"
+
+echo "Send ping to writer"
+
+until ping -c 1 -W 1 ${PG_PUBLISHER_HOST:?missing environment variable. PG_PUBLISHER_HOST must be set}
+    do
+        echo "Waiting for writer to ping..."
+        sleep 1s
+done
+
+echo "The ping to writer is successful!"
+
+set -e
 
 echo "Create SUBSCRIPTIONs"
 
