@@ -10,6 +10,8 @@ services:
       - POSTGRES_DB=pg17demo
       - PG_REP_USER=rep_user
       - PG_REP_PASSWORD=use4replication
+      - PUB_SUB_USER=pub_user
+      - PUB_SUB_PASSWORD=use4pubsub
     networks:
       default:
         aliases:
@@ -30,5 +32,29 @@ services:
         aliases:
           - pg_cluster
 
+  pg_subscriber:
+    build:
+      dockerfile: ./Dockerfile.subscriber
+    volumes:
+      - sub_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=pg17demo
+      - POSTGRES_PASSWORD=passw0rd
+      - POSTGRES_DB=pg17demo
+      - PUB_SUB_USER=pub_user
+      - PUB_SUB_PASSWORD=use4pubsub
+      - PG_PUBLISHER_HOST=pg_writer
+    command:
+      - "postgres"
+    post_start:
+      - command: bash /setup-subscription.sh
+    healthcheck:
+      # Use healthcheck to setup SUBSCRIPTIONs to PUBLICATIONs
+      test: ["CMD", "bash", "/setup-subscription.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
 volumes:
   pg_data:
+  sub_data:
