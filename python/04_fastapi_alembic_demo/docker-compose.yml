@@ -4,9 +4,9 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=fastapi_user
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=passw0rd
-      - POSTGRES_DB=fastapi_demo
+      - POSTGRES_DB=fastapidemo
     ports:
       - 5432:5432
     networks:
