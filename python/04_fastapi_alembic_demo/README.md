@@ -27,3 +27,10 @@ References
   - alembic/env.py
   - alembic/script.py.mako
   - alembid/README
+
+
+- Create alembic migration
+
+  ```sh
+  alembic revision --autogenerate -m "Create users table"
+  ```
