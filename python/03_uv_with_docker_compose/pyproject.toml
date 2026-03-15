@@ -1,5 +1,5 @@
 [project]
-name = "hello_world"
+name = "uv_with_docker_compose"
 version = "0.1.0"
 description = "uv tutorial"
 readme = "README.md"
