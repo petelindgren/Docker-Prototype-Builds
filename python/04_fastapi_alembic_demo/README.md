@@ -8,9 +8,22 @@ References
 
 ## Building uv environment
 
-```sh
-uv add fastapi --extra=standard
-uv add sqlalchemy alembic psycopg2-binary uvicorn
-uv lock
-```
+- Add Python packages to `uv`
 
+  ```sh
+  uv add fastapi --extra=standard
+  uv add sqlalchemy alembic psycopg2-binary uvicorn
+  uv lock
+  ```
+
+- Add alembic
+
+  ```sh
+  alembic init alembic
+  ```
+
+  creates
+  - alembic.ini
+  - alembic/env.py
+  - alembic/script.py.mako
+  - alembid/README
