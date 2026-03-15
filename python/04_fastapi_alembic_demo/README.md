@@ -34,3 +34,10 @@ References
   ```sh
   alembic revision --autogenerate -m "Create users table"
   ```
+
+- Run the app from local environment
+
+  ```sh
+  source .venv/bin/activate
+  fastapi run main.py
+  ```
